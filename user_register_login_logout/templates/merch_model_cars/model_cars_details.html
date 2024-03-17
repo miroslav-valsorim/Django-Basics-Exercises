@@ -1,0 +1,37 @@
+{% load cart_template_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    
+        <p style="display: block;"> Your shopping cart has {{ request.user| cart_item_count }} item/s. </p>
+
+    <h1>Current model car view</h1>
+    {{ object.title }}
+    <br>
+{#    {{ object.category }}#}
+     <br>
+    {{ object.size }}
+     <br>
+    {{ object.price }}
+    <br>
+    {{ object.discount_price }}
+    <br>
+    {{ object.description }}
+    <br>
+    <a href="{% url "add_to_cart" slug=object.slug %}">ADD TO CART</a>
+    <br>
+    <a href="{% url "remove_from_cart" slug=object.slug %}">REMOVE FROM CART</a>
+    <br>
+    <a href="{% url 'list_model_cars' %}">Back to Model Cars</a>
+</body>
+</html>

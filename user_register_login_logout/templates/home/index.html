@@ -1,0 +1,21 @@
+<h1>Worked !</h1>
+        <a href="{% url 'cart_details' %}">Shopping cart</a>    
+    
+        {% if user.is_authenticated %}
+            <h2>You are logged in!</h2>
+            <a href="{% url 'logout-user' %}">Logout</a>
+            <a href="{% url 'custom-logout' %}">Custom Logout</a>
+        {% else %}
+             <h2>Login or if you dont have an account Register!</h2>
+            <a href="{% url 'login-user' %}">Login</a>
+             <hr>
+            <a href="{% url 'register-user'%}">Register</a>
+        {% endif %}
+        <br>
+        <br>
+        <a href="{% url 'list_clothes' %}">Clothes</a>
+        <a href="{% url 'list_model_cars' %}">Model Cars</a>
+
+<hr>
+<h2>About</h2>
+<a href="{% url 'about' %}">About</a>

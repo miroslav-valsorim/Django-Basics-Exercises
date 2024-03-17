@@ -1,0 +1,71 @@
+{% load user_tags %}
+{% load static %}
+{% load filters %}
+{% load list_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise</title>
+    <link rel="stylesheet" href="{% static "css/index_styles.css" %}">
+
+</head>
+<body>
+    <header class="container">
+        <h1>Welcome to our serial exercise</h1>
+        <p>Please enter the information below!</p>
+    </header>
+    <main class="container">
+       <div class="forms-container">
+           <div>
+               <h2>normal form</h2>
+                <form>
+                {{ form.as_p }}
+                <button>Join</button>
+                    {% csrf_token %}
+                </form>
+           </div>
+           
+           <div>
+               <h2>model form</h2>
+                <form action="{% url 'index' %}" method="POST">
+                {{ modelform.as_p }}
+                <button>Join</button>
+                    {% csrf_token %}
+                </form>
+               
+                <ul>
+                    {% for person in users %}
+                        <li>
+                            {{ person.name }}
+                            <a href="{% url 'index' %}">Edit</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+           </div>
+       <div>
+           <h2>numbers with filters</h2>
+           <p>{{ random_numbers }}</p>
+           <p>{{ random_numbers|only_even }}</p>
+           <p>{{ random_numbers|only_odd }}</p>
+       </div>
+       
+       <div>
+           <h2>numbers with tags</h2>
+           <p>{{ random_numbers }}</p>
+           <p>{% list_of random_numbers %}</p>
+           
+           <h1>{% current_time %}</h1>
+           
+           <p>{% profile_avatar %}</p>
+       </div>
+       
+       </div>
+    </main>
+    <footer class="container">
+        <a href="" >More</a>
+        <a href="" >Contacts</a>
+        <a href="" >Join us</a>
+    </footer>
+</body>
+</html>

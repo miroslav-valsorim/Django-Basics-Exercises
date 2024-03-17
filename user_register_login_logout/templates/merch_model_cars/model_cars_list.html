@@ -1,0 +1,71 @@
+{% load cart_template_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1> This is my MODEL CARS list of items</h1>
+    <p style="display: block;"> Your shopping cart has {{ request.user| cart_item_count }} item/s. </p>
+    <a style="display: block;" href="{% url 'cart_details' %}">Shopping cart</a>    
+   <br>
+    <br>
+    
+    {% for item in object_list %}
+
+        <div style="width:150px; border: solid black 1px; margin-bottom: 5px; display: inline-block; ">
+             {{ item }}
+            <hr>
+            {{ item.price }} $
+            {% if item.discount_price %}
+                <br>
+                Discount price {{ item.discount_price }} $
+            {% endif %}
+            <hr>
+            {{ item.size }}
+            <hr>
+            {{ item.category }}
+            <hr>
+            <a href="{% url "detail_model_car" slug=item.slug %}">Details</a>
+            <br>
+            <br>
+        </div>
+
+    {% endfor %}
+
+    {% if is_paginated %}
+        <ul style="display: flex ; flex-direction: row; text-decoration: none; margin-left: 10px">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number  }}">< Back</a>
+            {% endif %}
+{#                 <li style="margin-left: 20px;  list-style-type: none;">#}
+{#                     <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>#}
+{#                 </li>        #}
+{#                <li style="margin-left: 20px; list-style-type:none;">#}
+{#                     <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>#}
+{#                 </li>        #}
+{#                <li style="margin-left: 20px; list-style-type: none;">#}
+{#                     <a href="?page={{ page_obj.next_page_number }}" >{{ page_obj.next_page_number }}</a>#}
+{#                 </li>        #}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      <span style="color: red;" class="current-page">{{ num }}</span>
+                    {% else %}
+                      <a style="margin-left: 10px; margin-right: 10px;" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+              {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" style="margin-left: 10px">Next ></a>
+            {% endif %}
+
+        </ul>
+    {% endif %}
+
+</body>
+</html>
