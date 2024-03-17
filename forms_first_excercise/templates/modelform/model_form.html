@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>My first MODEL form !</h1>
+
+    <form action="{% url 'model_form' %}" method="POST">
+        {{ model_form_context.as_p }}
+        
+        {% csrf_token %}
+        <button>Send</button>
+    </form>
+
+
+    <ul>
+        {% for person in peoples_list %}
+            <li>
+                {{ person.full_name }}
+                <a href="{% url 'update_person' pk=person.pk %}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

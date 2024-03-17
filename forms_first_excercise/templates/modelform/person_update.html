@@ -1,0 +1,8 @@
+<h1>Edit Person</h1>
+
+<form action="{% url 'update_person' pk=personal_pk.pk %}" method="POST">
+    {{ model_form_update_context.as_p }}
+        
+    {% csrf_token %}
+    <button>Update</button>
+</form>

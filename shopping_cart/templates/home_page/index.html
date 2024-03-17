@@ -1,0 +1,78 @@
+{% load cart_template_tags %}
+
+
+<head>
+    <style type="text/css">
+ 
+        /* Set the size of the div element 
+        that contains the map */
+        #map {
+            height: 400px;
+            width: 400px;
+        }
+         
+        h2 {
+            color: #308d46;
+        }
+    </style>
+</head>
+ 
+<body>
+ 
+
+   
+    <div style="width: 1000px; height: 1000px">
+        <iframe style="height: 1000px; width: 1000px"; src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d22346.81151380027!2d9.055956750016168!3d45.563370872039144!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478694eac5e6e8ff%3A0x9933cefffaadcca4!2sEx+Stabilimento+Alfa+Romeo!5e0!3m2!1sit!2sit!4v1429621191727" title="Alfa Romeo location" aria-label="Alfa Romeo location" ></iframe>
+    </div>
+
+ 
+{#    <script>#}
+{# #}
+{#        // Initialize and add the map#}
+{#        function initMap() {#}
+{# #}
+{#            // The location of Geeksforgeeks office#}
+{#            const gfg_office = {#}
+{#                lat: 28.50231,#}
+{#                lng: 77.40548#}
+{#            };#}
+{# #}
+{#            // Create the map, centered at gfg_office#}
+{#            const map = new google.maps.Map(#}
+{#                    document.getElementById("map"), {#}
+{# #}
+{#                // Set the zoom of the map#}
+{#                zoom: 17.56,#}
+{#                center: gfg_office,#}
+{#            });#}
+{#        }#}
+{#    </script>#}
+</body>
+
+<h1>Worked !</h1>
+
+{#        <a href="{% url 'cart_details' %}">Shopping cart</a>    #}
+        
+        {% if user.is_authenticated %}
+            <h2>You are logged in!</h2>
+            <a href="{% url 'logout-user' %}">Logout</a>
+            <br>
+            <a href="{% url 'custom-logout' %}">Custom Logout</a>
+            <br>
+            <p style="display: block;"> Your shopping cart has {{ request.user| cart_item_count }} item/s. </p>
+
+        {% else %}
+             <h2>Login or if you dont have an account Register!</h2>
+            <a href="{% url 'login-user' %}">Login</a>
+             <hr>
+            <a href="{% url 'register-user'%}">Register</a>
+        {% endif %}
+        <br>
+        <br>
+        <a href="{% url 'list_products' %}">All Products</a>
+        <br>
+        <a href="{% url 'cart_details' %}">Cart Details</a>
+
+<hr>
+{#<h2>About</h2>#}
+{#<a href="{% url 'about' %}">About</a>#}

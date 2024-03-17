@@ -1,0 +1,13 @@
+
+<h2>Create Form</h2>
+<form action="{% url 'create_person' %}" method="POST">
+    {{ person_form.as_p }}
+    {% csrf_token %}
+    <button>Create</button>
+</form>
+
+
+<h2>Update Form</h2>
+<form>
+    {{ update_form.as_p }}
+</form>

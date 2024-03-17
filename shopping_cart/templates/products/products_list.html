@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    <h1> This is my product list of items</h1>
+{#    <p style="display: block;"> Your shopping cart has {{ request.user| cart_item_count }} item/s. </p>#}
+{#    <a style="display: block;" href="{% url 'cart_details' %}">Shopping cart</a>    #}
+    <br>
+    <br>
+    
+    <div style="display: block; margin-bottom: 10px">
+
+        <a href="{% url 'list_products' %}" >All Products</a>
+
+        {% for category in categories %}
+            <a style="margin-left: 10px" href="{% url 'list_products' %}?category={{ category.id }}">{{category.name}}</a>
+        {% endfor %}
+    
+    </div>
+    
+    {% for item in object_list %}
+
+        <div style="width:150px; border: solid black 1px; margin-bottom: 5px; display: inline-block; ">
+             {{ item.name }}
+            <hr>
+            {{ item.price }} $
+{#            {% if item.discount_price %}#}
+{#                <br>#}
+{#                Discount price {{ item.discount_price }} $#}
+{#            {% endif %}#}
+            <hr>
+            {{ item.size }}
+            <hr>
+            {{ item.category }}
+            <hr>
+            <a href="{% url "detail_product" slug=item.slug %}">Details</a>
+            <br>
+            <br>
+            <a href="{% url "add_to_cart" slug=item.slug %}">ADD TO CART</a>
+
+        </div>
+
+    {% endfor %}
+
+    {% if is_paginated %}
+        <ul style="display: flex ; flex-direction: row; text-decoration: none; margin-left: 10px">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number  }}">< Back</a>
+            {% endif %}
+{#                 <li style="margin-left: 20px;  list-style-type: none;">#}
+{#                     <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>#}
+{#                 </li>        #}
+{#                <li style="margin-left: 20px; list-style-type:none;">#}
+{#                     <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>#}
+{#                 </li>        #}
+{#                <li style="margin-left: 20px; list-style-type: none;">#}
+{#                     <a href="?page={{ page_obj.next_page_number }}" >{{ page_obj.next_page_number }}</a>#}
+{#                 </li>        #}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      <span style="color: red;" class="current-page">{{ num }}</span>
+                    {% else %}
+                      <a style="margin-left: 10px; margin-right: 10px;" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+              {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" style="margin-left: 10px">Next ></a>
+            {% endif %}
+
+        </ul>
+    {% endif %}
+        <br>
+        <br>
+       <a href="{% url 'home_page' %}">Home</a>
+        <br>
+        <a href="{% url 'cart_details' %}">Cart Details</a>
+
+</body>
+</html>

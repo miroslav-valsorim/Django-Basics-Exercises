@@ -1,0 +1,43 @@
+{% load cart_template_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+     <h1>Current product view</h1>
+     
+     <p style="display: block;"> Your shopping cart has {{ request.user| cart_item_count }} item/s. </p>
+    <div style="display: block; width: 300px; border: black 1px solid;">
+        {{ object.name }}
+        <br>
+        {{ object.category }}
+         <br>
+        {{ object.size }}
+         <br>
+        {{ object.price }} $
+        <br>
+        {{ object.discount_price }} $
+        <br>
+        {{ object.description }}
+    </div>
+    <br>
+     <br>
+    <a href="{% url "add_to_cart" slug=object.slug %}">ADD TO CART</a>
+    <br>
+    <a href="{% url "remove_from_cart" slug=object.slug %}">REMOVE FROM CART</a>
+    <br>
+    <a href="{% url 'list_products' %}?category={{ object.category_id }}">Back to Products</a>
+    <a href="{{request.META.HTTP_REFERER}}">Back to Tickets</a>
+
+
+</body>
+</html>
